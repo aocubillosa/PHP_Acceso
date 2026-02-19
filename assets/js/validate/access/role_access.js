@@ -1,0 +1,132 @@
+$(document).ready( function() {
+	
+	$( "#form" ).validate( {
+		rules: {
+			id_menu:	{ required: true },
+			id_role:	{ required: true }
+		},
+		errorElement: "em",
+		errorPlacement: function ( error, element ) {
+			error.addClass( "help-block" );
+			error.insertAfter( element );
+		},
+		highlight: function ( element, errorClass, validClass ) {
+			$( element ).parents( ".col-sm-6" ).addClass( "has-error" ).removeClass( "has-success" );
+		},
+		unhighlight: function (element, errorClass, validClass) {
+			$( element ).parents( ".col-sm-6" ).addClass( "has-success" ).removeClass( "has-error" );
+		},
+		submitHandler: function (form) {
+			return true;
+		}
+	});
+	
+	$(".btn-danger").click(function () {
+		var oID = $(this).attr("id");
+		Swal.fire({
+			title: "Eliminar",
+            text: "¿Está seguro de eliminar el acceso al enlace?",
+            icon: "warning",
+            confirmButtonText: "Confirmar",
+            showCancelButton: true,
+            cancelButtonColor: "#DD6B55",
+            allowOutsideClick: false,
+			allowEscapeKey: false
+		}).then((result) => {
+			if (result.isConfirmed) {
+				$(".btn-danger").attr('disabled','-1');
+				$.ajax ({
+					type: 'POST',
+					url: base_url + 'access/delete_role_access',
+					data: {'identificador': oID},
+					cache: false,
+					success: function(data){
+						if(data.result == "error")
+						{
+							alert(data.mensaje);
+							$(".btn-danger").removeAttr('disabled');
+							return false;
+						} 
+						if(data.result)
+						{
+							$(".btn-danger").removeAttr('disabled');
+							var url = base_url + "access/role_access";
+							$(location).attr("href", url);
+						}
+						else
+						{
+							alert('Error. Reload the web page.');
+							$(".btn-danger").removeAttr('disabled');
+						}
+					},
+					error: function(result) {
+						alert('Error. Reload the web page.');
+						$(".btn-danger").removeAttr('disabled');
+					}
+				});
+			}
+		});
+	});
+	
+	$("#btnSubmit").click(function(){
+		if ($("#form").valid() == true){
+			$('#btnSubmit').attr('disabled','-1');
+			$("#div_error").css("display", "none");
+			$("#div_load").css("display", "inline");
+			$.ajax({
+				type: "POST",
+				url: base_url + "access/save_role_access",
+				data: $("#form").serialize(),
+				dataType: "json",
+				contentType: "application/x-www-form-urlencoded;charset=UTF-8",
+				cache: false,
+				success: function(data){
+					if(data.result == "error")
+					{
+						$('#btnSubmit').removeAttr('disabled');
+						$("#div_load").css("display", "none");
+						$("#div_error").css("display", "inline");
+						$("#span_msj").html(data.mensaje);
+						$('#btnSubmit').removeAttr('disabled');
+						return false;
+					} 
+					if(data.result)
+					{
+						$("#div_load").css("display", "none");
+						$('#btnSubmit').removeAttr('disabled');
+						var url = base_url + "access/role_access";
+						$(location).attr("href", url);
+					}
+					else
+					{
+						alert('Error. Reload the web page.');
+						$("#div_load").css("display", "none");
+						$("#div_error").css("display", "inline");
+						$('#btnSubmit').removeAttr('disabled');
+					}
+				},
+				error: function(result) {
+					alert('Error. Reload the web page.');
+					$("#div_load").css("display", "none");
+					$("#div_error").css("display", "inline");
+					$('#btnSubmit').removeAttr('disabled');
+				}
+			});
+		}
+	});
+});
+
+$(function(){
+	$(".btn-success").click(function () {
+		var oID = $(this).attr("id");
+        $.ajax ({
+            type: 'POST',
+			url: base_url + 'access/cargarModalRoleAccess',
+            data: {'idPermiso': oID},
+            cache: false,
+            success: function (data) {
+                $('#tablaDatos').html(data);
+            }
+        });
+	});
+});

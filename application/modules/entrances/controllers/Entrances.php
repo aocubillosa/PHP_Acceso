@@ -105,7 +105,7 @@ class Entrances extends CI_Controller {
 		$infoSchools = $this->general_model->get_schools($arrParam);
 		if (!empty($infoSchools)) {
 			$data["result"] = true;
-			if ($infoSchools[0]['state'] == 1) {
+			if ($infoSchools[0]['estado'] == 1) {
 				$data['estado'] = true;
 				$data['idSchool'] = $infoSchools[0]['id_escuela'];
 				$arrParam['idSchool'] = $infoSchools[0]['id_escuela'];

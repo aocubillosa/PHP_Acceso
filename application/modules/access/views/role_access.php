@@ -74,7 +74,7 @@
 								<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_access']; ?>" >
 									Editar <span class="fa fa-pencil-square-o" aria-hidden="true">
 								</button>&nbsp;&nbsp;&nbsp;
-								<button type="button" id="<?php echo $lista['id_access']; ?>" class='btn btn-danger btn-xs' title="Delete">
+								<button type="button" id="<?php echo $lista['id_access']; ?>" class='btn btn-danger btn-xs'>
 									Eliminar <i class="fa fa-trash-o"></i>
 								</button>
 						<?php

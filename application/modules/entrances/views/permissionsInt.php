@@ -78,7 +78,7 @@
 									<button type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#modal" id="<?php echo $lista['id_permiso']; ?>" >
 										Detalle <span class="fa fa-eye" aria-hidden="true">
 									</button>&nbsp;&nbsp;&nbsp;
-									<button type="button" id="<?php echo $lista['id_permiso']; ?>" class='btn btn-danger btn-xs' title="Delete">
+									<button type="button" id="<?php echo $lista['id_permiso']; ?>" class='btn btn-danger btn-xs'>
 										Cancelar <i class="fa fa-ban"></i>
 									</button>
 								<?php

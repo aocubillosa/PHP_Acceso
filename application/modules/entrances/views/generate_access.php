@@ -86,6 +86,7 @@
 							</div>
 						</div>
 						<?php } if ($infoMembers) { ?>
+						<input type="hidden" id="idSchool" name="idSchool" value="<?php echo $infoMembers[0]["id_escuela"] ?>"/>
 						<div class="row">
 							<div class="col-sm-6">
 								<div class="form-group text-left">
@@ -159,9 +160,9 @@
 									<button type="button" id="btnSubmit" name="btnSubmit" class="btn btn-primary" >
 										Generar QR <span class="fa fa-qrcode" aria-hidden="true">
 									</button>&nbsp;
-									<a href="<?php if($tipo == 1) { echo base_url('entrances/searchEmployees'); } if($tipo == 2) { echo base_url('entrances/searchVisitors'); } if($tipo == 3) { echo base_url('settings/members/' . $infoMembers[0]["id_escuela"] . '/1'); } ?>" class="btn btn-success">
-					                    Regresar <span class="fa fa-undo" aria-hidden="true"></span>
-					                </a>
+									<button type="button" class="btn btn-success" id="btnSuccess" name="btnSuccess">
+									    Regresar <span class="fa fa-undo" aria-hidden="true"></span>
+									</button>
 								</div>
 							</div>
 						</div>

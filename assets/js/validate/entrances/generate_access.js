@@ -25,6 +25,7 @@ $(document).ready(function() {
     $("#btnSubmit").click(function() {
         if ($("#form").valid() == true) {
             $('#btnSubmit').attr('disabled', '-1');
+            $('#btnSuccess').attr('disabled', '-1');
             $("#div_error").css("display", "none");
             $("#div_load").css("display", "inline");
             $.ajax({
@@ -40,11 +41,13 @@ $(document).ready(function() {
                         $("#div_error").css("display", "inline");
                         $("#span_msj").html(data.mensaje);
                         $('#btnSubmit').removeAttr('disabled');
+                        $('#btnSuccess').removeAttr('disabled');
                         return false;
                     }
                     if (data.result) {
                         $("#div_load").css("display", "none");
                         $('#btnSubmit').removeAttr('disabled');
+                        $('#btnSuccess').removeAttr('disabled');
                         var url = base_url + "entrances/show_qrcode/" + data.permiso + "/" + data.tipo;
                         $(location).attr("href", url);
                     } else {
@@ -52,6 +55,7 @@ $(document).ready(function() {
                         $("#div_load").css("display", "none");
                         $("#div_error").css("display", "inline");
                         $('#btnSubmit').removeAttr('disabled');
+                        $('#btnSuccess').removeAttr('disabled');
                     }
                 },
                 error: function(result) {
@@ -59,8 +63,26 @@ $(document).ready(function() {
                     $("#div_load").css("display", "none");
                     $("#div_error").css("display", "inline");
                     $('#btnSubmit').removeAttr('disabled');
+                    $('#btnSuccess').removeAttr('disabled');
                 }
             });
+        }
+    });
+
+    $('#btnSuccess').click(function() {
+        var tipo = $('#hddTipo').val();
+        if (tipo == 1) {
+            var url = base_url + "entrances/searchEmployees";
+            $(location).attr("href", url);
+        }
+        if (tipo == 2) {
+            var url = base_url + "entrances/searchVisitors";
+            $(location).attr("href", url);
+        }
+        if (tipo == 3) {
+            var idSchool = $('#idSchool').val();
+            var url = base_url + "settings/members/" + idSchool + '/1';
+            $(location).attr("href", url);
         }
     });
 });

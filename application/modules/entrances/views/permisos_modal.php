@@ -1,7 +1,16 @@
 <div class="modal-header">
 	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title" id="exampleModalLabel"><?php if (!empty($infoPermiso["fk_id_tipo_funcionario"])) { ?> Permisos Funcionarios <?php } else { ?> Permisos Visitantes <?php } ?>
-	</h4>
+	<?php
+		$titulo = "";
+		if (isset($infoPermiso["fk_id_funcionario"])) {
+		    $titulo = "Permisos Funcionarios";
+		} elseif (isset($infoPermiso["fk_id_visitante"])) {
+		    $titulo = "Permisos Visitantes";
+		} elseif (isset($infoPermiso["fk_id_integrante"])) {
+		    $titulo = "Permisos Integrantes";
+		}
+	?>
+	<h4 class="modal-title" id="exampleModalLabel"><?php echo $titulo; ?></h4>
 </div>
 <div class="modal-body">
 	<form name="form" id="form" role="form" method="post" >
@@ -112,5 +121,14 @@
 			</div>
 		</div>
 		<?php } ?>
+		<div class="form-group">
+			<div class="row" align="center">
+				<div style="width:50%;" align="center">
+					<a href="<?php if(!empty($infoPermiso['fk_id_funcionario'])) { echo base_url('entrances/permissionsFuncionarios'); } if(!empty($infoPermiso['fk_id_visitante'])) { echo base_url('entrances/permissionsVisitantes'); } if(!empty($infoPermiso['fk_id_integrante'])) { echo base_url('settings/members/' . $infoPermiso["id_escuela"] . '/1'); } ?>" class="btn btn-primary">
+	                    Aceptar <span class="fa fa-check" aria-hidden="true"></span>
+	                </a>
+				</div>
+			</div>
+		</div>
 	</form>
 </div>
